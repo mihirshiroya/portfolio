@@ -16,6 +16,7 @@ export function ThemeSwitcher() {
       //   if (!document.startViewTransition) switchTheme();
       //   document.startViewTransition(switchTheme);
       // }}
+      className="z-60"
     >
       <MoonStarIcon className="hidden [html.dark_&]:block" />
       <SunIcon className="hidden [html.light_&]:block" />
