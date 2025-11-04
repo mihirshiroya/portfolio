@@ -73,17 +73,5 @@ export default defineConfig([
 ```
 
 
-// whole project structure
 
-hooks - custom hooks
-lib - external lib config
-db - fetch data firebase
-assets - images icons 
-types - global types
-app.tsx - header main footer scroll to top or toast if needed
-main page - importing all content to page according the active nav item from features also adding routes
-pages - 404 not found page 
-components - in ui button, dialog, labels, separator etc outside ui folder navbar footer etc 
-features/profile - components projects/project item reusable and index file for exporting whole component simple component without separate folder 
-                   data and types 
 

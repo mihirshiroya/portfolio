@@ -98,7 +98,7 @@ const Navbar = () => {
         
         {/* Left side (Logo + Desktop Nav) */}
         <div className="flex items-center gap-6">
-          <DottedText />
+          <DottedText text='MIHIR SHIROYA' dotSize={2} dotGap={1} />
         </div>
 
         {/* Right side (Actions) */}
