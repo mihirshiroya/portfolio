@@ -2,9 +2,10 @@ import React from "react";
 
 interface SectionProps {
     children: React.ReactNode;
+    title:string
 }
 
-const Section: React.FC<SectionProps> = ({ children }) => {
+const Title: React.FC<SectionProps> = ({ children,title }) => {
     return (
         <div className="relative grid grid-cols-[auto_1px_minmax(0,theme(maxWidth.5xl))_1px_auto] grid-rows-[auto_0px_auto_0px_auto] bg-background">
             <div className="col-start-3 col-end-4 row-start-3 flex flex-col justify-center relative overflow-x-clip lg:overflow-x-visible">
@@ -50,7 +51,7 @@ const Section: React.FC<SectionProps> = ({ children }) => {
                         strokeWidth="0.5"
                     />
                 </svg>
-                {children}
+                <span className="flex items-center justify-start text-2xl md:text-3xl px-4 py-4 font-bold playfair">{title}</span>
             </div>
 
             <div
@@ -73,4 +74,4 @@ const Section: React.FC<SectionProps> = ({ children }) => {
     );
 };
 
-export default Section;
+export default Title;

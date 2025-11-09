@@ -34,7 +34,7 @@ export function MobileNav({
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="w-64" align="end" sideOffset={8}>
+      <DropdownMenuContent className="w-40" align="end" sideOffset={2}>
         {items.map((link) => (
           <DropdownMenuItem key={link.href} asChild>
             <a href={link.href}>{link.title}</a>

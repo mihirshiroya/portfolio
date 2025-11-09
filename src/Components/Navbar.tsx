@@ -49,7 +49,7 @@ const Navbar = () => {
     //     </div>
     //   </div>
     // </nav>
-    <div className="relative grid grid-cols-[auto_1px_minmax(0,theme(maxWidth.4xl))_1px_auto] grid-rows-[1fr_1px_auto_1px_1fr] bg-background">
+    <div className="relative grid grid-cols-[auto_1px_minmax(0,theme(maxWidth.5xl))_1px_auto] grid-rows-[1fr_1px_auto_1px_1fr] bg-background overflow-x-hidden no-scrollbar">
       <div className='col-start-3 col-end-4 row-start-3 flex flex-col justify-center relative'>
                   <svg
                     viewBox="0 0 24 24"
@@ -93,8 +93,8 @@ const Navbar = () => {
                         strokeWidth="0.5"
                     />
                 </svg>
-        <div className=" flex w-full max-w-4xl flex-col bg-background mx-auto">
-         <div className="mx-auto flex w-full max-w-4xl h-12 px-2 items-center justify-between">
+        <div className=" flex w-full max-w-5xl flex-col bg-background mx-auto">
+         <div className="mx-auto flex w-full max-w-5xl h-12 px-2 py-8 items-center justify-between">
         
         {/* Left side (Logo + Desktop Nav) */}
         <div className="flex items-center gap-6">

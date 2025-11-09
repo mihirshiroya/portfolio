@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -191,6 +192,8 @@
   --selection-foreground: oklch(0.985 0 0);
 
   --shadow-popover: 0 6px 24px rgba(0, 0, 0, 0.25);
+
+   --font-playfair: 'Playfair Display', serif;
 }
 
 .dark {
@@ -419,4 +422,8 @@
   [data-highlighted-line] {
     @apply bg-code-highlight;
   }
+}
+
+.playfair {
+  font-family: var(--font-playfair);
 }
