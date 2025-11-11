@@ -100,47 +100,10 @@ export function ExperienceSection() {
     },
   ])
 
-  const addExperience = (parentId: string | null, content: string) => {
-    const newExperience: Experience = {
-      id: Date.now().toString(),
-      company: "New Entry",
-      role: content.split(" • ")[0] || "Role",
-      details: content,
-      startDate: "Start",
-      endDate: "End",
-      level: parentId ? "detail" : "company",
-      replies: [],
-    }
-
-    if (!parentId) {
-      setExperiences([newExperience, ...experiences])
-    } else {
-      setExperiences(addToExperience(experiences, parentId, newExperience))
-    }
-  }
-
-  const addToExperience = (items: Experience[], parentId: string, newItem: Experience): Experience[] => {
-    return items.map((item) => {
-      if (item.id === parentId) {
-        return {
-          ...item,
-          replies: [newItem, ...item.replies],
-        }
-      }
-      if (item.replies.length > 0) {
-        return {
-          ...item,
-          replies: addToExperience(item.replies, parentId, newItem),
-        }
-      }
-      return item
-    })
-  }
-
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-4 overflow-hidden">
       {experiences.map((exp) => (
-        <ExperienceThread key={exp.id} experience={exp} onAdd={addExperience} />
+        <ExperienceThread key={exp.id} experience={exp}/>
       ))}
     </div>
   )
