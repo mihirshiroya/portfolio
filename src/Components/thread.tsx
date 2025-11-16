@@ -80,8 +80,8 @@ export function ExperienceThread({
           )}
           {hasReplies && isExpanded && (
             <div
-              className={`absolute left-0 top-8 w-[2px] border border-dashed z-10 ${
-                isExpanded ? "h-[90%]" : "h-6"
+              className={`absolute left-0 top-8 w-[1px] border border-dashed z-10 ${
+                isExpanded ? "h-[66%]" : "h-6"
               } `}
               style={{ marginLeft: "8px" }}
             />

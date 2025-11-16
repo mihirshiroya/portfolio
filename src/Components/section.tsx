@@ -6,7 +6,7 @@ interface SectionProps {
 
 const Section: React.FC<SectionProps> = ({ children }) => {
     return (
-        <div className="relative grid grid-cols-[auto_1px_minmax(0,theme(maxWidth.5xl))_1px_auto] grid-rows-[auto_0px_auto_0px_auto] bg-background">
+        <div className="relative grid grid-cols-[auto_1px_minmax(0,theme(maxWidth.3xl))_1px_auto] grid-rows-[auto_0px_auto_0px_auto] bg-background">
             <div className="col-start-3 col-end-4 row-start-3 flex flex-col justify-center relative overflow-x-clip lg:overflow-x-visible">
                 <svg
                     viewBox="0 0 24 24"

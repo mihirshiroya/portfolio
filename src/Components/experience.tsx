@@ -1,5 +1,5 @@
 import React from 'react'
-import bigscal from '../assets/bigscal-logo.png'
+import bigscal from '../assets/ssasit-logo.png'
 
 const Experience = () => {
     return (
@@ -8,7 +8,7 @@ const Experience = () => {
                 <img
                     src={bigscal}
                     alt="Profile Header"
-                    className="size-12 object-fill rounded-full"
+                    className="size-12 object-scale-down rounded-full"
                 />
                 <div className='text-lg md:text-2xl font-medium pl-4'>Bigscal Technologies Pvt Ltd</div>
             </div>

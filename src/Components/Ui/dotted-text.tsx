@@ -1,7 +1,8 @@
-import type React from "react"
-import type { JSX } from "react/jsx-runtime"
+import type React from "react";
+import { useEffect, useRef } from "react";
+import type { JSX } from "react/jsx-runtime";
+import { useTheme } from "../../context/ThemeContext";
 
-// Dot matrix patterns for each letter (5x7 grid)
 const letterPatterns: Record<string, number[][]> = {
   A: [
     [0, 1, 1, 1, 0],
@@ -103,13 +104,13 @@ const letterPatterns: Record<string, number[][]> = {
     [1, 0, 0, 0, 1],
   ],
   L: [
-    [1, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0],
-    [1, 1, 1, 1, 1],
+    [1, 0, 0, 0],
+    [1, 0, 0, 0],
+    [1, 0, 0, 0],
+    [1, 0, 0, 0],
+    [1, 0, 0, 0],
+    [1, 0, 0, 0],
+    [1, 1, 1, 1],
   ],
   M: [
     [1, 0, 0, 0, 1],
@@ -123,10 +124,10 @@ const letterPatterns: Record<string, number[][]> = {
   N: [
     [1, 0, 0, 0, 1],
     [1, 1, 0, 0, 1],
+    [1, 0, 0, 0, 1],
     [1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1],
     [1, 0, 0, 1, 1],
-    [1, 0, 0, 0, 1],
-    [1, 0, 0, 0, 1],
     [1, 0, 0, 0, 1],
   ],
   O: [
@@ -152,9 +153,9 @@ const letterPatterns: Record<string, number[][]> = {
     [1, 0, 0, 0, 1],
     [1, 0, 0, 0, 1],
     [1, 0, 0, 0, 1],
-    [1, 0, 0, 1, 0],
     [1, 0, 0, 0, 1],
-    [0, 1, 1, 1, 1],
+    [0, 1, 1, 1, 0],
+    [0, 0, 0, 0, 1],
   ],
   R: [
     [1, 1, 1, 1, 0],
@@ -204,7 +205,7 @@ const letterPatterns: Record<string, number[][]> = {
   W: [
     [1, 0, 0, 0, 1],
     [1, 0, 0, 0, 1],
-    [1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1],
     [1, 0, 1, 0, 1],
     [1, 0, 1, 0, 1],
     [0, 1, 0, 1, 0],
@@ -237,105 +238,105 @@ const letterPatterns: Record<string, number[][]> = {
     [1, 0, 0, 0, 0],
     [1, 1, 1, 1, 1],
   ],
-   0: [
-    [0,1,1,1,0],
-    [1,0,0,0,1],
-    [1,0,1,0,1],
-    [1,0,1,0,1],
-    [1,0,0,0,1],
-    [1,0,0,0,1],
-    [0,1,1,1,0],
+  0: [
+    [0, 1, 1, 1, 0],
+    [1, 0, 0, 0, 1],
+    [1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+    [0, 1, 1, 1, 0],
   ],
   1: [
-    [0,0,1,0,0],
-    [0,1,1,0,0],
-    [1,0,1,0,0],
-    [0,0,1,0,0],
-    [0,0,1,0,0],
-    [0,0,1,0,0],
-    [1,1,1,1,1],
+    [0, 0, 1, 0, 0],
+    [0, 1, 1, 0, 0],
+    [1, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [1, 1, 1, 1, 1],
   ],
   2: [
-    [0,1,1,1,0],
-    [1,0,0,0,1],
-    [0,0,0,0,1],
-    [0,0,0,1,0],
-    [0,0,1,0,0],
-    [0,1,0,0,0],
-    [1,1,1,1,1],
+    [0, 1, 1, 1, 0],
+    [1, 0, 0, 0, 1],
+    [0, 0, 0, 0, 1],
+    [0, 0, 0, 1, 0],
+    [0, 0, 1, 0, 0],
+    [0, 1, 0, 0, 0],
+    [1, 1, 1, 1, 1],
   ],
   3: [
-    [0,1,1,1,0],
-    [1,0,0,0,1],
-    [0,0,0,0,1],
-    [0,0,1,1,0],
-    [0,0,0,0,1],
-    [1,0,0,0,1],
-    [0,1,1,1,0],
+    [0, 1, 1, 1, 0],
+    [1, 0, 0, 0, 1],
+    [0, 0, 0, 0, 1],
+    [0, 0, 1, 1, 0],
+    [0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+    [0, 1, 1, 1, 0],
   ],
   4: [
-    [0,0,0,1,0],
-    [0,0,1,1,0],
-    [0,1,0,1,0],
-    [1,0,0,1,0],
-    [1,1,1,1,1],
-    [0,0,0,1,0],
-    [0,0,0,1,0],
+    [0, 0, 0, 1, 0],
+    [0, 0, 1, 1, 0],
+    [0, 1, 0, 1, 0],
+    [1, 0, 0, 1, 0],
+    [1, 1, 1, 1, 1],
+    [0, 0, 0, 1, 0],
+    [0, 0, 0, 1, 0],
   ],
   5: [
-    [1,1,1,1,1],
-    [1,0,0,0,0],
-    [1,1,1,1,0],
-    [0,0,0,0,1],
-    [0,0,0,0,1],
-    [1,0,0,0,1],
-    [0,1,1,1,0],
+    [1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0],
+    [1, 1, 1, 1, 0],
+    [0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+    [0, 1, 1, 1, 0],
   ],
   6: [
-    [0,1,1,1,0],
-    [1,0,0,0,1],
-    [1,0,0,0,0],
-    [1,1,1,1,0],
-    [1,0,0,0,1],
-    [1,0,0,0,1],
-    [0,1,1,1,0],
+    [0, 1, 1, 1, 0],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0],
+    [1, 1, 1, 1, 0],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+    [0, 1, 1, 1, 0],
   ],
   7: [
-    [1,1,1,1,1],
-    [0,0,0,0,1],
-    [0,0,0,1,0],
-    [0,0,1,0,0],
-    [0,1,0,0,0],
-    [0,1,0,0,0],
-    [0,1,0,0,0],
+    [1, 1, 1, 1, 1],
+    [0, 0, 0, 0, 1],
+    [0, 0, 0, 1, 0],
+    [0, 0, 1, 0, 0],
+    [0, 1, 0, 0, 0],
+    [0, 1, 0, 0, 0],
+    [0, 1, 0, 0, 0],
   ],
   8: [
-    [0,1,1,1,0],
-    [1,0,0,0,1],
-    [1,0,0,0,1],
-    [0,1,1,1,0],
-    [1,0,0,0,1],
-    [1,0,0,0,1],
-    [0,1,1,1,0],
+    [0, 1, 1, 1, 0],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+    [0, 1, 1, 1, 0],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+    [0, 1, 1, 1, 0],
   ],
   9: [
-    [0,1,1,1,0],
-    [1,0,0,0,1],
-    [1,0,0,0,1],
-    [0,1,1,1,1],
-    [0,0,0,0,1],
-    [1,0,0,0,1],
-    [0,1,1,1,0],
+    [0, 1, 1, 1, 0],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+    [0, 1, 1, 1, 1],
+    [0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+    [0, 1, 1, 1, 0],
   ],
   "%": [
-  [1,0,0,0,1],
-  [1,0,0,1,0],
-  [0,0,1,0,0],
-  [0,0,1,0,0],
-  [0,1,0,0,0],
-  [1,0,0,0,1],
-  [1,0,0,0,1],
-],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 1, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 1, 0, 0, 0],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+  ],
   " ": [
     [0, 0, 0],
     [0, 0, 0],
@@ -345,7 +346,7 @@ const letterPatterns: Record<string, number[][]> = {
     [0, 0, 0],
     [0, 0, 0],
   ],
-}
+};
 
 interface DottedTextProps {
   text: string;
@@ -353,63 +354,68 @@ interface DottedTextProps {
   dotGap: number;
 }
 
-export const DottedText: React.FC<DottedTextProps> = ({ text, dotSize = 2, dotGap = 1 }) => {
+export const DottedText: React.FC<DottedTextProps> = ({
+  text,
+  dotSize = 2,
+  dotGap = 1,
+}) => {
+  const { theme, setTheme } = useTheme();
+  console.log("Current theme:", theme);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const renderDotMatrix = () => {
-    const rows: JSX.Element[] = []
-    const maxRows = 7
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    for (let row = 0; row < maxRows; row++) {
-    const dotsInRow: JSX.Element[] = [];
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-    for (let i = 0; i < text.length; i++) {
-      const char = text[i];
-      const pattern = letterPatterns[char] || letterPatterns[" "];
+    // dynamic dot color based on theme
+    const dotColor = theme === "dark" ? "#ffffff" : "#000000";
 
-      if (pattern && pattern[row]) {
-        for (let col = 0; col < pattern[row].length; col++) {
-          const isDot = pattern[row][col];
-          dotsInRow.push(
-            <div
-              key={`dot-${row}-${i}-${col}`}
-              className={`rounded-lg transition-all duration-300 hover:scale-125 ${
-                isDot ? "bg-slate-400" : "bg-transparent"
-              }`}
-              style={{
-                width: `${dotSize}px`,
-                height: `${dotSize}px`,
-                margin: `${dotGap / 2}px`,
-              }}
-            />
-          );
-        }
+    const letters = text
+      .toUpperCase()
+      .split("")
+      .map((c) => letterPatterns[c] || letterPatterns[" "]);
 
-        dotsInRow.push(
-          <div
-            key={`space-${row}-${i}`}
-            style={{
-              width: `${dotSize}px`,
-              margin: `${dotGap / 2}px`,
-            }}
-          />
-        );
-      }
-    }
+    const spacing = dotGap;
+    const rows = 7;
 
-    rows.push(
-      <div key={`row-${row}`} className="flex justify-center">
-        {dotsInRow}
-      </div>
+    // canvas width calc
+    const totalCols = letters.reduce(
+      (acc, p) => acc + p[0].length + 1,
+      0
     );
-  }
 
-  return rows;
-  }
+    const width = totalCols * (dotSize + spacing);
+    const height = rows * (dotSize + spacing);
 
-  return (
-    <div className="bg-background flex items-center justify-center overflow-hidden">
-      {/* Dot matrix display */}
-      <div className="flex flex-col items-center justify-center">{renderDotMatrix()}</div>
-    </div>
-  )
-}
+    // resize canvas
+    canvas.width = width;
+    canvas.height = height;
+
+    ctx.clearRect(0, 0, width, height);
+
+    let xOffset = 0;
+
+    letters.forEach((pattern) => {
+      const cols = pattern[0].length;
+
+      pattern.forEach((row, r) => {
+        row.forEach((dot, c) => {
+          if (dot === 1) {
+            const x = xOffset + c * (dotSize + spacing);
+            const y = r * (dotSize + spacing);
+
+            ctx.fillStyle = dotColor;
+            ctx.fillRect(x, y, dotSize, dotSize);
+          }
+        });
+      });
+
+      xOffset += (cols + 1) * (dotSize + spacing);
+    });
+  }, [text, dotSize, dotGap, theme]); // <- include theme to redraw on switch
+
+  return <canvas ref={canvasRef} className="block" />;
+};

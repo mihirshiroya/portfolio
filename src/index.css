@@ -427,3 +427,59 @@
 .playfair {
   font-family: var(--font-playfair);
 }
+
+/* Required for View Transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 650ms;
+  animation-timing-function: cubic-bezier(.4, 0, .2, 1);
+  overflow: clip;
+}
+
+/* NEW page: circle grows outward */
+::view-transition-new(root) {
+  animation-name: revealCircle;
+}
+
+/* OLD page: circle collapses inward */
+::view-transition-old(root) {
+  animation-name: hideCircle;
+}
+
+
+
+/* NEW page reveals with expanding circle */
+@keyframes revealCircle {
+    0% {
+    clip-path: circle(0% at 50% 0%);
+    filter: blur(12px);
+    opacity: 0.6;
+  }
+  100% {
+    /* 150% is not enough on phones → fix with max() */
+    clip-path: circle(max(150vmax, 150vh, 150vw) at 50% 50%);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+/* OLD page hides by shrinking circle inward */
+/* @keyframes hideCircle {
+  from {
+    clip-path: circle(150% at 50% 50%);
+  }
+  to {
+    clip-path: circle(0% at 50% 50%);
+  }
+} */
+
+@keyframes blurOut {
+  from { filter: blur(0px); }
+  to { filter: blur(12px); opacity: 0.6; }
+}
+
+/* Unblur NEW page */
+@keyframes unblurIn {
+  from { filter: blur(12px); opacity: 0.6; }
+  to { filter: blur(0px); opacity: 1; }
+}
