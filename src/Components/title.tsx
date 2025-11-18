@@ -1,11 +1,11 @@
 import React from "react";
 
 interface SectionProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     title:string
 }
 
-const Title: React.FC<SectionProps> = ({ children,title }) => {
+const Title: React.FC<SectionProps> = ({ title }) => {
     return (
         <div className="relative grid grid-cols-[auto_1px_minmax(0,theme(maxWidth.3xl))_1px_auto] grid-rows-[auto_0px_auto_0px_auto] bg-background">
             <div className="col-start-3 col-end-4 row-start-3 flex flex-col justify-center relative overflow-x-clip lg:overflow-x-visible">

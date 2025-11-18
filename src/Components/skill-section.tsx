@@ -1,4 +1,3 @@
-import React from "react";
 import { FaReact, FaNodeJs, FaJava, FaFigma } from "react-icons/fa";
 import { RiTailwindCssFill, RiFirebaseLine } from "react-icons/ri";
 import { SiExpress, SiMongodb, SiPostgresql } from "react-icons/si";

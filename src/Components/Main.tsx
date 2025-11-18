@@ -1,7 +1,5 @@
 import React from "react";
-import Navbar from "./Navbar";
 import Section from "./section";
-import { SkillCard } from "./skill-card";
 import { ProfileHeader, PersonalInfo, MoreInfo } from "./profile-header";
 import Title from "./title";
 import Experience from "./experience";
@@ -10,11 +8,6 @@ import Socials from "./socials";
 import Footer from "./Footer";
 import Education from "./education";
 import Clock from "./clock";
-import HoverRevealItem from "./reveal-item";
-import { FaReact,FaNodeJs,FaJava,FaFigma } from "react-icons/fa";
-import { RiTailwindCssFill,RiFirebaseLine  } from "react-icons/ri";
-import { SiExpress,SiMongodb,SiPostgresql } from "react-icons/si";
-import { TbBrandJavascript,TbBrandTypescript,TbBrandKotlin,TbBrandNextjs   } from "react-icons/tb";
 import ProjectsSection from "./project-section";
 import SkillSection from "./skill-section";
 
@@ -33,25 +26,25 @@ const MainLayout: React.FC<MainLayoutProps> = () => {
       <Section>
         <PersonalInfo />
       </Section>
-      <Title title="<About/>" />
+      <Title title="<About/>" children={undefined} />
       <Section>
         <MoreInfo />
       </Section>
-      <Title title="<Experience/>" />
+      <Title title="<Experience/>" children={undefined} />
       <Section>
         <Experience />
       </Section>
       <Section>
         <ExperienceSection />
       </Section>
-      <Title title="<Education/>" />
+      <Title title="<Education/>" children={undefined} />
       <Section>
         <Education />
       </Section>
       <Section>
         <Socials />
       </Section>
-       <Title title="<Skills/>" />
+       <Title title="<Skills/>" children={undefined} />
           <Section>
         <SkillSection/>
       </Section>
@@ -59,7 +52,7 @@ const MainLayout: React.FC<MainLayoutProps> = () => {
           <Clock/>
         
       </Section>
-         <Title title="<Projects/>" />
+         <Title title="<Projects/>" children={undefined} />
         <Section>
         <ProjectsSection/>
       </Section>

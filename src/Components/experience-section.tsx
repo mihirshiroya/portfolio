@@ -1,8 +1,7 @@
-import { useState } from "react"
-import { type Experience, ExperienceThread } from "./thread"
+import { ExperienceThread } from "./thread"
 
 export function ExperienceSection() {
-  const [experiences, setExperiences] = useState<Experience[]>([
+  const experiences = [
     {
       id: "1",
       company: "Tech Innovations Inc",
@@ -98,11 +97,11 @@ export function ExperienceSection() {
         },
       ],
     },
-  ])
+  ]
 
   return (
     <div className="space-y-6 p-4 overflow-hidden">
-      {experiences.map((exp) => (
+      {experiences.map((exp:any) => (
         <ExperienceThread key={exp.id} experience={exp}/>
       ))}
     </div>

@@ -1,6 +1,5 @@
 import type React from "react";
 import { useEffect, useRef } from "react";
-import type { JSX } from "react/jsx-runtime";
 import { useTheme } from "../../context/ThemeContext";
 
 const letterPatterns: Record<string, number[][]> = {
@@ -359,8 +358,7 @@ export const DottedText: React.FC<DottedTextProps> = ({
   dotSize = 2,
   dotGap = 1,
 }) => {
-  const { theme, setTheme } = useTheme();
-  console.log("Current theme:", theme);
+  const { theme } = useTheme();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {

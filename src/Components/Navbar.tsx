@@ -1,4 +1,3 @@
-import React from 'react'
 import { DottedText } from './Ui/dotted-text'
 import ThemeSwitcher from './ThemeSwitcher'
 import { Button } from './Ui/Button'

@@ -1,4 +1,3 @@
-import React from "react";
 import { BadgePercent, Calendar } from 'lucide-react';
 import ssasitLogo from '../assets/ssasit-logo.png'
 import tdecLogo from '../assets/tdec-logo.png'

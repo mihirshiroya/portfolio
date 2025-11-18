@@ -1,4 +1,3 @@
-import React from "react";
 import { Code, MapPin, Phone, Mail, Cake, Palette } from "lucide-react";
 import profilepfp from "../assets/profile-header.jpg";
 import indiaflag from "../assets/india-flag.png";
@@ -88,7 +87,7 @@ const MoreInfo = () => {
   );
 };
 
-const RoleItem = ({ icon, title }) => {
+const RoleItem = ({ icon, title }: { icon: React.ReactNode; title: string }) => {
   return (
     <div className="w-full flex items-center py-2 px-4">
       <div className="rounded-full flex items-center justify-center ring-2 ring-primary/50">

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, ChevronRight, Divide, Plus } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { Line } from "./line";
 
 export interface Experience {
@@ -28,9 +28,7 @@ export function ExperienceThread({
 
   const hasReplies = experience.replies.length > 0;
   console.log("checking for the breakthough", experience.replies);
-  const maxDepth = 2;
 
-  const canAddItems = experience.level !== "detail";
 
   const getLevelStyles = () => {
     switch (experience.level) {

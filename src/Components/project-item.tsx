@@ -31,7 +31,7 @@ export default function ProjectCard({
   link,
 }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-
+  console.log("Technologies:", link);
   const parentVariants = {
     hidden: { opacity: 0, scaleY: 0.95 },
     show: {

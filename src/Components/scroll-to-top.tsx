@@ -3,7 +3,6 @@ import {
   motion,
   AnimatePresence,
   useMotionValue,
-  useTransform,
   animate,
 } from "framer-motion";
 import { ArrowUp } from "lucide-react";

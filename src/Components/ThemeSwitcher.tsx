@@ -13,12 +13,12 @@ export function ThemeSwitcher() {
   
     const toggleTheme = () => {
       if (!document.startViewTransition) {
-        setTheme(prev => (prev === "light" ? "dark" : "light"));
+        setTheme((prev: string) => (prev === "light" ? "dark" : "light"));
         return;
       }
   
       document.startViewTransition(() => {
-        setTheme(prev => (prev === "light" ? "dark" : "light"));
+        setTheme((prev: string) => (prev === "light" ? "dark" : "light"));
       });
     };
 

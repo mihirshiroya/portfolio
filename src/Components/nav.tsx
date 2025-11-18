@@ -30,7 +30,7 @@ export function Nav({
             : activeId?.startsWith(href));
 
         return (
-          <NavItem key={href} href={href} active={active}>
+          <NavItem key={href} to={href} active={active}>
             {title}
           </NavItem>
         );
