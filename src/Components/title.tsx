@@ -51,7 +51,7 @@ const Title: React.FC<SectionProps> = ({ children,title }) => {
                         strokeWidth="0.5"
                     />
                 </svg>
-                <span className="flex items-center justify-start text-2xl md:text-3xl px-4 py-4 font-bold playfair">{title}</span>
+                <span className="flex items-center justify-start text-2xl px-4 py-2 font-bold playfair">{title}</span>
             </div>
 
             <div

@@ -94,7 +94,7 @@ const Navbar = () => {
                     />
                 </svg>
         <div className=" flex w-full max-w-4xl flex-col bg-background mx-auto">
-         <div className="mx-auto flex w-full max-w-4xl h-12 px-2 py-8 items-center justify-between">
+         <div className="mx-auto flex w-full max-w-4xl h-12 px-2 py-4 items-center justify-between">
         
         {/* Left side (Logo + Desktop Nav) */}
         <div className="flex items-center gap-6">

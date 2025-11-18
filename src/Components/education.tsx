@@ -63,7 +63,7 @@ export function EducationSection({ education }: EducationSectionProps) {
           key={edu.id}
           className="flex items-start p-4 bg-background backdrop-blur-sm"
         >
-          <div className="size-18 md:size-30 rounded-full overflow-hidden flex items-center justify-center border-dashed border-2 border-primary">
+          <div className="size-18 md:size-25 rounded-full overflow-hidden flex items-center justify-center border-dashed border-2 border-primary">
             <a
               href={edu.link || '#'}
               target="_blank"
@@ -81,12 +81,16 @@ export function EducationSection({ education }: EducationSectionProps) {
           </div>
 
           <div className="h-full my-auto flex-1 pl-4 md:space-y-2">
-            <h3 className="text-lg md:text-2xl font-bold flex items-center justify-between">{edu.degree} <span className="hidden text-xl font-semibold text-muted-foreground md:flex items-center"><Calendar className="inline-block size-5 md:size-6 mr-2 text-yellow-500" />{edu.startYear} - {edu.endYear}</span> </h3>
-            <p className="text-muted-foreground font-semibold text-md md:text-xl">
+            <div className="flex items-center justify-between">
+               <h3 className="text-lg md:text-xl font-bold flex items-center justify-between">{edu.degree}  </h3>
+            <span className="hidden text-md font-bold text-muted-foreground md:flex items-center"><Calendar className="inline-block size-5 mr-2 text-yellow-500" />{edu.startYear} - {edu.endYear}</span>
+            </div>
+  
+            <p className="text-muted-foreground font-semibold text-md md:text-lg">
               {edu.college}, {edu.location}
             </p>
             <h3 className="text-lg font-semibold text-muted-foreground md:hidden flex items-center"> <Calendar className="inline-block size-5 mr-2 text-yellow-500" />{edu.startYear} - {edu.endYear} </h3>
-            <div className="text-lg md:text-xl text-muted-foreground font-semibold flex items-center">
+            <div className="text-lg text-muted-foreground font-semibold flex items-center">
               <BadgePercent className="inline-block size-5 md:size-6 mr-2 text-green-500" />{edu.cgpa}
             </div>
           </div>
