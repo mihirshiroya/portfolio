@@ -7,7 +7,7 @@ import {
   Link,
   Github,
 } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, easeOut, motion } from "framer-motion";
 import TechStack from "./tech-stack";
 
 interface ProjectCardProps {
@@ -19,6 +19,7 @@ interface ProjectCardProps {
   technologies: string[];
   details?: string[];
   link?: string;
+  github: string;
 }
 
 export default function ProjectCard({
@@ -29,9 +30,9 @@ export default function ProjectCard({
   technologies,
   details,
   link,
+  github,
 }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  console.log("Technologies:", link);
   const parentVariants = {
     hidden: { opacity: 0, scaleY: 0.95 },
     show: {
@@ -41,7 +42,7 @@ export default function ProjectCard({
         staggerChildren: 0.12,
         delayChildren: 0.05,
         duration: 0.3,
-        ease: "easeOut",
+        ease: easeOut,
       },
     },
   };
@@ -52,7 +53,7 @@ export default function ProjectCard({
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
-      transition: { duration: 0.38, ease: "easeOut" },
+      transition: { duration: 0.38, ease: easeOut },
     },
   };
 
@@ -108,7 +109,6 @@ export default function ProjectCard({
               style={{ overflow: "hidden" }}
               className="space-y-4"
             >
-              {/* Overview */}
               <motion.div variants={childVariants}>
                 <h4 className="mb-2 text-sm md:text-lg font-semibold text-foreground flex items-center justify-between">
                   <div className="flex items-center">
@@ -116,8 +116,20 @@ export default function ProjectCard({
                     Overview
                   </div>
                   <div className="flex gap-x-2">
-                    <Link className="size-4 md:size-5 text-muted-foreground" />
-                    <Github className="size-4 md:size-5 text-muted-foreground" />
+                    {link && (
+                      <IconLink
+                        href={link}
+                        icon={
+                          <Link className="size-4 md:size-5 text-muted-foreground" />
+                        }
+                      />
+                    )}
+                    <IconLink
+                      href={github}
+                      icon={
+                        <Github className="size-4 md:size-5 text-muted-foreground" />
+                      }
+                    />
                   </div>
                 </h4>
 
@@ -126,7 +138,6 @@ export default function ProjectCard({
                 </p>
               </motion.div>
 
-              {/* Key Features */}
               {details && details.length > 0 && (
                 <motion.div variants={childVariants}>
                   <h4 className="mb-2 text-sm md:text-lg font-semibold text-foreground flex items-center justify-start">
@@ -147,7 +158,6 @@ export default function ProjectCard({
                 </motion.div>
               )}
 
-              {/* Tech Stack */}
               {technologies.length > 0 && (
                 <motion.div variants={childVariants}>
                   <h4 className="mb-2 text-sm md:text-lg font-semibold text-foreground flex items-center justify-start">
@@ -156,14 +166,7 @@ export default function ProjectCard({
                   </h4>
 
                   <div className="flex flex-wrap -space-x-4">
-                    <TechStack items={["Github", "Linkedin", "Email"]} />
-
-                    {/* Original mapping commented out */}
-                    {/* {technologies.map((tech) => (
-                      <motion.span key={tech} variants={childVariants}>
-                        <HoverRevealItem icon={<Github />} label={tech} />
-                      </motion.span>
-                    ))} */}
+                    <TechStack items={technologies} />
                   </div>
                 </motion.div>
               )}
@@ -174,3 +177,14 @@ export default function ProjectCard({
     </div>
   );
 }
+
+const IconLink = ({ href, icon }: { href: string; icon: React.ReactNode }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="p-2 rounded-md hover:bg-accent transition-colors"
+  >
+    {icon}
+  </a>
+);

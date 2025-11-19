@@ -1,12 +1,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-const ThemeContext = createContext({
+interface ThemeContextType {
+  theme: string;
+  setTheme: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const ThemeContext = createContext<ThemeContextType>({
   theme: "light",
-  setTheme: () => {},
+  setTheme: () => {}, // temp placeholder
 });
 
-export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
+export const ThemeProvider = ({ children }:any) => {
+  const [theme, setTheme] = useState<string>(() => {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme || "light";
   });

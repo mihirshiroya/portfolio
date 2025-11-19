@@ -29,13 +29,13 @@ export const SkillCard: React.FC<SkillCardProps> = ({
   const completedValue = (progress / 100) * 10;
 
   return (
-    <div className="relative w-full md:w-[230px] h-40 bg-background border border-dashed border-ring/50 flex flex-col items-start justify-center gap-3 backdrop-blur-md px-4 overflow-hidden">
+    <div className="relative w-full md:w-[230px] h-40 bg-background group border border-dashed border-ring/50 flex flex-col items-start justify-center gap-3 backdrop-blur-md px-4 overflow-hidden">
       <Corner className="left-0 bottom-0 -translate-x-[50%] translate-y-[50%]" />
       <Corner className="right-0 bottom-0 translate-x-[50%] translate-y-[50%]" />
       <Corner className="right-0 top-0 translate-x-[50%] -translate-y-[50%]" />
       <Corner className="left-0 top-0 -translate-x-[50%] -translate-y-[50%]" />
 
-       <div className="text-5xl scale-150 absolute top-0 right-0 opacity-50" style={{ color }}>
+       <div className="text-5xl scale-150 absolute top-0 right-0 opacity-50 group-hover:opacity-100" style={{ color }}>
           {icon}
         </div>
       {/* Icon + Title */}

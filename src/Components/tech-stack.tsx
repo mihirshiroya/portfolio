@@ -1,15 +1,10 @@
 import HoverRevealItem from "./reveal-item";
-import { Github, Linkedin, Mail } from "lucide-react";
+import iconMap from "./icon-map";
 import { useState } from "react";
 
-const iconMap: Record<string, React.ReactNode> = {
-  Github: <Github className="size-5" />,
-  Linkedin: <Linkedin className="size-5" />,
-  Email: <Mail className="size-5" />,
-};
 
 interface TechStackProps {
-  items: string[]; // only labels
+  items: string[];
 }
 
 export default function TechStack({ items }: TechStackProps) {
