@@ -1,9 +1,19 @@
 import React from "react";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { FaSpotify } from "react-icons/fa";
 
 const Socials = () => {
   return (
-    <div className="flex gap-4">
+    <div
+      className="
+    grid 
+    grid-cols-3          
+    gap-4 
+    place-items-center
+    md:flex              
+    md:justify-around
+  "
+    >
       <SocialCard
         icon={<Github className="size-5 md:size-8" />}
         link="https://github.com/yourid"
@@ -16,7 +26,16 @@ const Socials = () => {
         icon={<Twitter className="size-5 md:size-8" />}
         link="https://twitter.com/yourid"
       />
+      <SocialCard
+        icon={<FaSpotify className="size-5 md:size-8" />}
+        link="https://open.spotify.com/user/yourid"
+      />
+      <SocialCard
+        icon={<Mail className="size-5 md:size-8" />}
+        link="mailto:yourid"
+      />
     </div>
+
   );
 };
 
@@ -43,15 +62,14 @@ const SocialCard: React.FC<SocialCardProps> = ({ icon, link }) => {
               key={i}
               viewBox="0 0 24 24"
               fill="none"
-              className={`absolute z-50 size-10 md:size-18 stroke-primary/80 ${
-                i === 0
+              className={`absolute z-50 size-10 md:size-18 stroke-primary/80 ${i === 0
                   ? "left-0 bottom-0"
                   : i === 1
-                  ? "right-0 bottom-0"
-                  : i === 2
-                  ? "right-0 top-0"
-                  : "left-0 top-0"
-              }`}
+                    ? "right-0 bottom-0"
+                    : i === 2
+                      ? "right-0 top-0"
+                      : "left-0 top-0"
+                }`}
               style={{ transform: `translate(${x}, ${y})` }}
             >
               <line x1="12" y1="5" x2="12" y2="19" strokeWidth="1" />
