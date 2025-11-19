@@ -1,10 +1,11 @@
-import React, { useMemo } from "react";
-import { cn } from "../lib/utils";
+import React, { useMemo, useState } from "react";
+import { motion } from "framer-motion";
 
 interface TaskProgressProps {
   total: number;
   completed: number;
   color?: string;
+  parentHoverKey?: number; // <-- added (card hover trigger)
 }
 
 interface SegmentProps {
@@ -13,6 +14,7 @@ interface SegmentProps {
   fillPercentage: number;
   borderColor: string;
   fillColor: string;
+  replayKey: number;
 }
 
 const Segment = React.memo(function Segment({
@@ -21,26 +23,26 @@ const Segment = React.memo(function Segment({
   fillPercentage,
   borderColor,
   fillColor,
+  replayKey,
 }: SegmentProps) {
   const segmentStyle = useMemo(() => ({ borderColor }), [borderColor]);
-  const p: string = fillPercentage + "%";
+
+  const targetWidth =
+    isFull ? "100%" : isPartial ? `${fillPercentage}%` : "0%";
+
   return (
     <div
-      className={cn("h-2 flex-1 relative skew-x-30 border overflow-hidden")}
+      className="h-2 flex-1 relative skew-x-30 border overflow-hidden"
       style={segmentStyle}
     >
       {(isFull || isPartial) && (
-        <div
-          className={cn(
-            "absolute inset-y-0 left-0 transition-all duration-500 origin-left",
-            "w-0",
-            isFull && "group-hover:w-full",
-            isPartial && `group-hover:w-[${p}]`
-          )}
-          style={{
-            backgroundColor: fillColor,
-            // width: isPartial ? `${fillPercentage}%` : undefined,
-          }}
+        <motion.div
+          key={replayKey} // <-- forces animation to restart
+          initial={{ width: 0 }}
+          animate={{ width: targetWidth }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="absolute inset-y-0 left-0 origin-left"
+          style={{ backgroundColor: fillColor }}
         />
       )}
     </div>
@@ -51,7 +53,12 @@ export const Progress = React.memo(function Progress({
   total,
   completed,
   color = "#00ffff40",
+  parentHoverKey = 0,
 }: TaskProgressProps) {
+  const [selfHoverReplay, setSelfHoverReplay] = useState(0);
+
+  const replayKey = parentHoverKey + selfHoverReplay;
+
   const borderColor = useMemo(() => {
     return color.startsWith("#") && color.length === 7 ? `${color}40` : color;
   }, [color]);
@@ -66,9 +73,11 @@ export const Progress = React.memo(function Progress({
       const isFull = idx + 1 <= whole;
       const isPartial = idx === whole && decimal !== 0;
       const fillPercentage = isPartial ? decimal * 100 : 0;
+
       return (
         <Segment
           key={idx}
+          replayKey={replayKey}
           isFull={isFull}
           isPartial={isPartial}
           fillPercentage={fillPercentage}
@@ -77,7 +86,14 @@ export const Progress = React.memo(function Progress({
         />
       );
     });
-  }, [total, completed, borderColor, fillColor]);
+  }, [total, completed, borderColor, fillColor, replayKey]);
 
-  return <div className="flex gap-1 w-full group">{segments}</div>;
+  return (
+    <div
+      className="flex gap-1 w-full"
+      onMouseEnter={() => setSelfHoverReplay((n) => n + 1)} // self hover replay
+    >
+      {segments}
+    </div>
+  );
 });
