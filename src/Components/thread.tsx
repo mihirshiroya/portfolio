@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { Line } from "./line";
 
@@ -16,8 +17,28 @@ export interface Experience {
 interface ExperienceThreadProps {
   experience: Experience;
   depth?: number;
-  isLast?: Boolean;
+  isLast?: boolean;
 }
+
+const containerVariants = {
+  open: {
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0.04,
+    },
+  },
+  closed: {
+    transition: {
+      staggerChildren: 0.04,
+      staggerDirection: -1,
+    },
+  },
+};
+
+const childVariants = {
+  open: { opacity: 1, y: 0, transition: { duration: 0.18 } },
+  closed: { opacity: 0, y: -6, transition: { duration: 0.18 } },
+};
 
 export function ExperienceThread({
   experience,
@@ -25,23 +46,7 @@ export function ExperienceThread({
   isLast,
 }: ExperienceThreadProps) {
   const [isExpanded, setIsExpanded] = useState(true);
-
   const hasReplies = experience.replies.length > 0;
-  console.log("checking for the breakthough", experience.replies);
-
-
-  const getLevelStyles = () => {
-    switch (experience.level) {
-      case "company":
-        return "bg-background";
-      case "position":
-        return "bg-background";
-      case "detail":
-        return "bg-background";
-      default:
-        return "";
-    }
-  };
 
   const getLevelLabel = () => {
     switch (experience.level) {
@@ -50,16 +55,16 @@ export function ExperienceThread({
       case "position":
         return "Position";
       case "detail":
-        return "Achievement";
+        return "Details";
       default:
         return "";
     }
   };
 
   return (
-    <div className="relative">
+    <motion.div className="relative">
       <div
-        className={`flex rounded-lg ${getLevelStyles()}`}
+        className="flex rounded-lg bg-background"
         style={{ marginLeft: depth > 0 ? "4px" : "0" }}
       >
         <div className="flex flex-col items-center gap-1 pt-1 relative">
@@ -67,7 +72,6 @@ export function ExperienceThread({
             <button
               onClick={() => setIsExpanded(!isExpanded)}
               className="p-1 hover:bg-background rounded transition-colors z-40"
-              aria-label={isExpanded ? "Collapse" : "Expand"}
             >
               {isExpanded ? (
                 <ChevronDown className="w-4 h-4" />
@@ -76,31 +80,31 @@ export function ExperienceThread({
               )}
             </button>
           )}
+
           {hasReplies && isExpanded && (
-            <div
-              className={`absolute left-0 top-8 w-[1px] border border-dashed z-10 ${
-                isExpanded ? "h-[66%]" : "h-6"
-              } `}
+            <motion.div
+              layout={false}
+              className="absolute left-0 top-8 w-[1px] border border-dashed z-10 h-[77%] !transition-none !duration-0"
               style={{ marginLeft: "8px" }}
             />
           )}
 
           {depth > 0 && (
-            <div
-              className={`absolute left-0 top-0 -translate-x-[27px] z-30 ${
-                isExpanded ? "w-full" : "w-full"
-              }`}
+            <motion.div
+              layout={false}
+              className="absolute left-0 top-0 -translate-x-[27px] z-30 w-full !transition-none !duration-0"
               style={{ marginLeft: "8px" }}
             >
               <Line />
-            </div>
+            </motion.div>
           )}
         </div>
 
         <div className="flex-1 min-w-0 relative">
           {isLast && (
-            <div
-              className={`absolute left-0 top-0 w-[4px] bg-background -translate-x-[28px] z-20 ${
+            <motion.div
+              layout={false}
+              className={`absolute left-0 top-0 w-[4px] bg-background -translate-x-[28px] z-20 !transition-none !duration-0 ${
                 isExpanded ? "h-full" : "h-6"
               }`}
               style={{ marginLeft: "8px" }}
@@ -108,8 +112,9 @@ export function ExperienceThread({
           )}
 
           {isLast && depth === 1 && (
-            <div
-              className="absolute left-0 top-0 w-[4px] bg-background -translate-x-[53px] z-20 h-full"
+            <motion.div
+              layout={false}
+              className="absolute left-0 top-0 w-[4px] bg-background -translate-x-[53px] z-20 h-full !transition-none !duration-0"
               style={{ marginLeft: "8px" }}
             />
           )}
@@ -124,6 +129,7 @@ export function ExperienceThread({
           <h3 className="text-lg font-bold text-foreground mb-1">
             {experience.role}
           </h3>
+
           <p className="text-sm text-muted-foreground mb-2">
             {experience.company}
           </p>
@@ -136,24 +142,56 @@ export function ExperienceThread({
             {experience.details}
           </p>
 
-          {isExpanded && hasReplies && (
-            <div className="mt-4 space-y-4">
-              {experience.replies.map((reply, index) => {
-                const isLast = index === experience.replies.length - 1;
-                console.log("getting values", reply.id, isLast, depth);
-                return (
-                  <ExperienceThread
-                    key={reply.id}
-                    experience={reply}
-                    depth={depth + 1}
-                    isLast={isLast}
-                  />
-                );
-              })}
-            </div>
-          )}
+          <AnimatePresence initial={false}>
+            {isExpanded && hasReplies && (
+              <motion.div
+                key="children"
+                layout
+                variants={containerVariants}
+                initial="closed"
+                animate="open"
+                exit="closed"
+                className="mt-4 space-y-4"
+              >
+                {experience.replies.map((reply, i) => {
+                  const last = i === experience.replies.length - 1;
+                  return (
+                    <motion.div key={reply.id} variants={childVariants}>
+                      <ExperienceThread
+                        experience={reply}
+                        depth={depth + 1}
+                        isLast={last}
+                      />
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
+}
+
+{
+  /* 
+
+  //there are three section
+
+//company 
+active indicator 
+company logo,name,start end year,no of positions
+
+  
+  //position
+  active indicator
+  role , start and end year
+
+
+//details
+responsibilities and details of role
+tech stack
+  
+  */
 }
